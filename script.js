@@ -15,18 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Remove active class from all links and sections
             navLinks.forEach(navLink => navLink.classList.remove('active'));
             sections.forEach(section => section.classList.remove('active'));
             
-            // Add active class to clicked link
             this.classList.add('active');
-            
-            // Show corresponding section
             const sectionId = this.getAttribute('data-section');
             document.getElementById(sectionId).classList.add('active');
-            
-            // Scroll to top
             window.scrollTo(0, 0);
         });
     });
@@ -36,17 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (ctaButton) {
         ctaButton.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Remove active class from all links and sections
             navLinks.forEach(navLink => navLink.classList.remove('active'));
             sections.forEach(section => section.classList.remove('active'));
-            
-            // Add active class to booking link and section
             const sectionId = this.getAttribute('data-section');
             document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
             document.getElementById(sectionId).classList.add('active');
-            
-            // Scroll to top
             window.scrollTo(0, 0);
         });
     }
@@ -62,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dateFormat: "Y-m-d",
         disable: [
             function(date) {
-                // Disable Sundays
-                return (date.getDay() === 0);
+                return (date.getDay() === 0); // Disable Sundays
             }
         ]
     });
@@ -95,40 +82,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function changeStep(step) {
-        // Hide current step
         document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
         document.querySelector(`.step-indicator .step[data-step="${currentStep}"]`).classList.remove('active');
-        
-        // Show new step
         document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
         document.querySelector(`.step-indicator .step[data-step="${step}"]`).classList.add('active');
-        
         currentStep = step;
         
-        // Update order summary
         if (currentStep === 3) {
             updateOrderSummary();
         }
     }
 
     function validateStep(step) {
-        let isValid = true;
-        
-        if (step === 1) {
-            const selectedCut = document.querySelector('input[name="cutType"]:checked');
-            if (!selectedCut) {
-                alert('Please select a cut type');
-                isValid = false;
-            }
-        } else if (step === 2) {
-            const selectedStatus = document.querySelector('input[name="clientStatus"]:checked');
-            if (!selectedStatus) {
-                alert('Please select your client status');
-                isValid = false;
-            }
+        if (step === 1 && !document.querySelector('input[name="cutType"]:checked')) {
+            alert('Please select a cut type');
+            return false;
         }
-        
-        return isValid;
+        if (step === 2 && !document.querySelector('input[name="clientStatus"]:checked')) {
+            alert('Please select your client status');
+            return false;
+        }
+        return true;
     }
 
     function updateOrderSummary() {
@@ -136,18 +110,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const totalPriceElement = document.getElementById('total-price');
         const discountTextElement = document.getElementById('discount-text');
         
-        // Get selected options
-        const selectedCut = document.querySelector('input[name="cutType"]:checked');
-        const selectedStatus = document.querySelector('input[name="clientStatus"]:checked');
-        
-        // Clear summary
         summaryContainer.innerHTML = '';
         
+        const selectedCut = document.querySelector('input[name="cutType"]:checked');
         if (selectedCut) {
             const cutName = selectedCut.value.split(' R')[0];
             const cutPrice = parseFloat(selectedCut.getAttribute('data-price'));
             
-            // Add cut to summary
             const cutElement = document.createElement('div');
             cutElement.innerHTML = `<span>${cutName}</span><span>R${cutPrice.toFixed(2)}</span>`;
             summaryContainer.appendChild(cutElement);
@@ -155,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let totalPrice = cutPrice;
             let discount = 0;
             
+            const selectedStatus = document.querySelector('input[name="clientStatus"]:checked');
             if (selectedStatus) {
                 discount = parseFloat(selectedStatus.getAttribute('data-discount'));
                 
@@ -176,32 +146,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Form submission
+    // WhatsApp Booking Function
+    function submitViaWhatsApp() {
+        const selectedCut = document.querySelector('input[name="cutType"]:checked');
+        const selectedStatus = document.querySelector('input[name="clientStatus"]:checked');
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const date = document.getElementById('date').value;
+        
+        if (!selectedCut || !name || !phone || !date) {
+            alert('Please complete all required fields');
+            return;
+        }
+        
+        const cutType = selectedCut.value.split(' R')[0];
+        const totalPrice = document.getElementById('total-price').textContent;
+        const status = selectedStatus ? selectedStatus.value.split(' ')[0] : 'New Client';
+        
+        // Format WhatsApp message
+        const message = `*NEW BARBER BOOKING*%0A%0A` +
+                       `*Name:* ${name}%0A` +
+                       `*Phone:* ${phone}%0A` +
+                       `*Service:* ${cutType}%0A` +
+                       `*Date:* ${date}%0A` +
+                       `*Client Type:* ${status}%0A` +
+                       `*Total Price:* R${totalPrice}%0A%0A` +
+                       `_Booked via Mune De Barber Website_`;
+        
+        // Open WhatsApp with pre-filled message
+        window.open(`https://wa.me/27818744472?text=${message}`, '_blank');
+        
+        // Optional: Reset form after submission
+        setTimeout(() => {
+            document.getElementById('booking-form').reset();
+            changeStep(1);
+        }, 1000);
+    }
+
+    // Form submission handler
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
         bookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            // In a real app, you would send this data to a server
-            console.log('Form submitted:', data);
-            
-            // Show success message
-            alert('Your appointment has been booked successfully! We will contact you to confirm.');
-            
-            // Reset form
-            this.reset();
-            changeStep(1);
+            submitViaWhatsApp();
         });
     }
 
-    // Watch for changes to update summary
+    // Update summary when selections change
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', function() {
             if (currentStep === 3) {
@@ -209,28 +200,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
-
-// WhatsApp submission alternative
-function submitViaWhatsApp() {
-    const cutType = document.querySelector('input[name="cutType"]:checked').value;
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const date = document.getElementById('date').value;
-    const total = document.getElementById('total-price').textContent;
-    
-    const message = `New Booking:%0A%0A` +
-                   `Name: ${name}%0A` +
-                   `Phone: ${phone}%0A` +
-                   `Service: ${cutType}%0A` +
-                   `Date: ${date}%0A` +
-                   `Total: R${total}`;
-    
-    window.open(`https://wa.me/27834878488?text=${message}`, '_blank');
-}
-
-// Update form submission to use WhatsApp
-bookingForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    submitViaWhatsApp();
 });
