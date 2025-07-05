@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mune De Barber - Precision Cuts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <h1 class="logo">MUNE DE BARBER</h1>
+            <div class="barber-pole">
+                <div class="stripe red"></div>
+                <div class="stripe white"></div>
+                <div class="stripe blue"></div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-section="gallery">Gallery</a></li>
+                <li><a href="#" class="nav-link" data-section="booking">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="barber-profile">
+                    <img src="FB_IMG_1751719750980.jpg" alt="Barber" class="barber-image">
+                    <div class="barber-info">
+                        <h2>Meet The Barber</h2>
+                        <p>Master barber with 3 years of experience in precision cuts</p>
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <h2>Get the Perfect Cut</h2>
+                    <p>Book your appointment today</p>
+                    <button class="cta-button" data-section="booking">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <h2 class="section-title">Our Work</h2>
+            <div class="gallery-container">
+                <div class="photos-grid">
+                    <div class="photo-item"><img src="FB_IMG_1751719536575.jpg" alt="Haircut 1"></div>
+                    <div class="photo-item"><img src="FB_IMG_1751719557905.jpg" alt="Haircut 2"></div>
+                    <div class="photo-item"><img src="FB_IMG_1751719579507.jpg" alt="Haircut 3"></div>
+                    <div class="photo-item"><img src="FB_IMG_1751719645821.jpg" alt="Haircut 4"></div>
+                    <div class="photo-item"><img src="FB_IMG_1751719704942.jpg" alt="Haircut 5"></div>
+                    <div class="photo-item"><img src="FB_IMG_1751719621942.jpg"Haircut 6"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking" class="section">
+            <div class="booking-container">
+                <h2 class="section-title">Book Your Cut</h2>
+                <div class="booking-steps">
+                    <div class="step-indicator">
+                        <div class="step active" data-step="1">Cut Type</div>
+                        <div class="step" data-step="2">Client Status</div>
+                        <div class="step" data-step="3">Details</div>
+                    </div>
+
+                    <form id="booking-form" class="booking-form">
+                        <!-- Step 1: Cut Type -->
+                        <div class="form-step active" data-step="1">
+                            <h3>Select Your Cut</h3>
+                            <div class="options-grid">
+                                <label class="option-card">
+                                    <input type="radio" name="cutType" value="Bald R100" data-price="100">
+                                    <div class="option-content">
+                                        <i class="fas fa-cut"></i>
+                                        <span>Bald</span>
+                                        <span>R100</span>
+                                    </div>
+                                </label>
+                                <label class="option-card">
+                                    <input type="radio" name="cutType" value="Cut R100" data-price="100">
+                                    <div class="option-content">
+                                        <i class="fas fa-cut"></i>
+                                        <span>Cut</span>
+                                        <span>R100</span>
+                                    </div>
+                                </label>
+                                <label class="option-card">
+                                    <input type="radio" name="cutType" value="Cut & Beard R150" data-price="150">
+                                    <div class="option-content">
+                                        <i class="fas fa-cut"></i>
+                                        <span>Cut & Beard</span>
+                                        <span>R150</span>
+                                    </div>
+                                </label>
+                                <label class="option-card">
+                                    <input type="radio" name="cutType" value="Trim R50" data-price="50">
+                                    <div class="option-content">
+                                        <i class="fas fa-cut"></i>
+                                        <span>Trim</span>
+                                        <span>R50</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="step-navigation">
+                                <button type="button" class="next-step">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Client Status -->
+                        <div class="form-step" data-step="2">
+                            <h3>Client Status</h3>
+                            <div class="options-grid">
+                                <label class="option-card">
+                                    <input type="radio" name="clientStatus" value="First Time" data-discount="0">
+                                    <div class="option-content">
+                                        <i class="fas fa-user-plus"></i>
+                                        <span>First Time</span>
+                                        <span>No Discount</span>
+                                    </div>
+                                </label>
+                                <label class="option-card">
+                                    <input type="radio" name="clientStatus" value="Returning 10% off" data-discount="10">
+                                    <div class="option-content">
+                                        <i class="fas fa-user-check"></i>
+                                        <span>Returning</span>
+                                        <span>10% off</span>
+                                    </div>
+                                </label>
+                                <label class="option-card">
+                                    <input type="radio" name="clientStatus" value="VIP 20% off" data-discount="20">
+                                    <div class="option-content">
+                                        <i class="fas fa-crown"></i>
+                                        <span>VIP</span>
+                                        <span>20% off</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="step-navigation">
+                                <button type="button" class="prev-step">Previous</button>
+                                <button type="button" class="next-step">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Personal Details -->
+                        <div class="form-step" data-step="3">
+                            <h3>Your Details</h3>
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Preferred Date</label>
+                                <input type="text" id="date" name="date" class="datepicker" placeholder="Select date" required>
+                            </div>
+                            
+                            <div class="summary">
+                                <h4>Order Summary</h4>
+                                <div id="order-summary"></div>
+                                <div class="total">
+                                    <strong>Total: R<span id="total-price">0</span></strong>
+                                    <span id="discount-text"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="step-navigation">
+                                <button type="button" class="prev-step">Previous</button>
+                                <button type="submit" class="submit-btn">Book Appointment</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i> gai gai</p>
+            <p><i class="fas fa-phone"></i> +27 </p>
+            <p class="credit">Website by Ndou Vhuthu</p>
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <div class="razor-animation">
+        <i class="fas fa-cut"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>
