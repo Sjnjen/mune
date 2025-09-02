@@ -3,209 +3,581 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mune De Barber - Precision Cuts</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>LongTermLoan - Professional Financial Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a237e;
+            --secondary: #3949ab;
+            --accent: #00c853;
+            --light: #f5f5f7;
+            --dark: #1d1d1f;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(57, 73, 171, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a237e"/><path d="M0 0L100 100" stroke="%233949ab" stroke-width="2"/><path d="M100 0L0 100" stroke="%233949ab" stroke-width="2"/></svg>');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            background-color: white;
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .money-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .money {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .requirements {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .requirements .section-title h2 {
+            color: white;
+        }
+
+        .documents {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .document-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .document-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .contact {
+            background-color: var(--light);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 200, 83, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #009c40;
+        }
+
+        .hours {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 200, 83, 0.1);
+            border-radius: 8px;
+        }
+
+        .hours h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="loading-screen">
-        <div class="loader"></div>
-    </div>
-
     <header>
-        <div class="logo-container">
-            <h1 class="logo">MUNE DE BARBER</h1>
-            <div class="barber-pole">
-                <div class="stripe red"></div>
-                <div class="stripe white"></div>
-                <div class="stripe blue"></div>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>LongTermLoan</span>
             </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#requirements">Requirements</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav>
-            <ul>
-                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
-                <li><a href="#" class="nav-link" data-section="gallery">Gallery</a></li>
-                <li><a href="#" class="nav-link" data-section="booking">Book Now</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <main>
-        <section id="home" class="section active">
-            <div class="hero">
-                <div class="barber-profile">
-                    <img src="FB_IMG_1751719750980.jpg" alt="Barber" class="barber-image">
-                    <div class="barber-info">
-                        <h2>Meet The Barber</h2>
-                        <p>Master barber with 3 years of experience in precision cuts</p>
+    <section id="home" class="hero">
+        <div class="money-animation" id="moneyAnimation"></div>
+        <div class="hero-content">
+            <h1>Professional Loan Solutions</h1>
+            <p>We provide fast and reliable long-term loan services with minimal documentation requirements. Get the financial support you need without the hassle.</p>
+            <a href="#contact" class="cta-button">Apply Now</a>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>We offer tailored financial solutions to meet your specific needs</p>
+        </div>
+        <div class="services">
+            <div class="service-card">
+                <i class="fas fa-university"></i>
+                <h3>Long-Term Loans</h3>
+                <p>Flexible repayment options with competitive interest rates for your financial goals.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Financial Planning</h3>
+                <p>Expert advice to help you manage your finances and achieve your objectives.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Personal Consultation</h3>
+                <p>One-on-one meetings to understand your unique financial situation.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="requirements" class="section requirements">
+        <div class="section-title">
+            <h2>Document Requirements</h2>
+            <p>We've simplified the process - only three documents needed</p>
+        </div>
+        <div class="documents">
+            <div class="document-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>3 Months Bank Statement</h3>
+                <p>Recent bank statements to verify your financial history.</p>
+            </div>
+            <div class="document-item">
+                <i class="fas fa-file-alt"></i>
+                <h3>Salary Advice</h3>
+                <p>Recent salary slips or income verification documents.</p>
+            </div>
+            <div class="document-item">
+                <i class="fas fa-id-card"></i>
+                <h3>ID Document</h3>
+                <p>Valid government-issued identification document.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Reach out to us for any inquiries or loan applications</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Address</h4>
+                        <p>Singo Complex Office No.7, Gaba next to the bridge, Ntodeni road</p>
                     </div>
                 </div>
-                <div class="hero-text">
-                    <h2>Get the Perfect Cut</h2>
-                    <p>Book your appointment today</p>
-                    <button class="cta-button" data-section="booking">Book Now</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="section">
-            <h2 class="section-title">Our Work</h2>
-            <div class="gallery-container">
-                <div class="photos-grid">
-                    <div class="photo-item"><img src="FB_IMG_1751719536575.jpg" alt="Haircut 1"></div>
-                    <div class="photo-item"><img src="FB_IMG_1751719557905.jpg" alt="Haircut 2"></div>
-                    <div class="photo-item"><img src="FB_IMG_1751719579507.jpg" alt="Haircut 3"></div>
-                    <div class="photo-item"><img src="FB_IMG_1751719645821.jpg" alt="Haircut 4"></div>
-                    <div class="photo-item"><img src="FB_IMG_1751719704942.jpg" alt="Haircut 5"></div>
-                    <div class="photo-item"><img src="FB_IMG_1751719621942.jpg"Haircut 6"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="booking" class="section">
-            <div class="booking-container">
-                <h2 class="section-title">Book Your Cut</h2>
-                <div class="booking-steps">
-                    <div class="step-indicator">
-                        <div class="step active" data-step="1">Cut Type</div>
-                        <div class="step" data-step="2">Client Status</div>
-                        <div class="step" data-step="3">Details</div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <h4>Phone Numbers</h4>
+                        <p>079 483 9334</p>
+                        <p>071 774 1302</p>
                     </div>
-
-                    <form id="booking-form" class="booking-form">
-                        <!-- Step 1: Cut Type -->
-                        <div class="form-step active" data-step="1">
-                            <h3>Select Your Cut</h3>
-                            <div class="options-grid">
-                                <label class="option-card">
-                                    <input type="radio" name="cutType" value="Bald R100" data-price="100">
-                                    <div class="option-content">
-                                        <i class="fas fa-cut"></i>
-                                        <span>Bald</span>
-                                        <span>R100</span>
-                                    </div>
-                                </label>
-                                <label class="option-card">
-                                    <input type="radio" name="cutType" value="Cut R100" data-price="100">
-                                    <div class="option-content">
-                                        <i class="fas fa-cut"></i>
-                                        <span>Cut</span>
-                                        <span>R100</span>
-                                    </div>
-                                </label>
-                                <label class="option-card">
-                                    <input type="radio" name="cutType" value="Cut & Beard R150" data-price="150">
-                                    <div class="option-content">
-                                        <i class="fas fa-cut"></i>
-                                        <span>Cut & Beard</span>
-                                        <span>R150</span>
-                                    </div>
-                                </label>
-                                <label class="option-card">
-                                    <input type="radio" name="cutType" value="Trim R50" data-price="50">
-                                    <div class="option-content">
-                                        <i class="fas fa-cut"></i>
-                                        <span>Trim</span>
-                                        <span>R50</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="step-navigation">
-                                <button type="button" class="next-step">Next</button>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Client Status -->
-                        <div class="form-step" data-step="2">
-                            <h3>Client Status</h3>
-                            <div class="options-grid">
-                                <label class="option-card">
-                                    <input type="radio" name="clientStatus" value="First Time" data-discount="0">
-                                    <div class="option-content">
-                                        <i class="fas fa-user-plus"></i>
-                                        <span>First Time</span>
-                                        <span>No Discount</span>
-                                    </div>
-                                </label>
-                                <label class="option-card">
-                                    <input type="radio" name="clientStatus" value="Returning 10% off" data-discount="10">
-                                    <div class="option-content">
-                                        <i class="fas fa-user-check"></i>
-                                        <span>Returning</span>
-                                        <span>10% off</span>
-                                    </div>
-                                </label>
-                                <label class="option-card">
-                                    <input type="radio" name="clientStatus" value="VIP 20% off" data-discount="20">
-                                    <div class="option-content">
-                                        <i class="fas fa-crown"></i>
-                                        <span>VIP</span>
-                                        <span>20% off</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div class="step-navigation">
-                                <button type="button" class="prev-step">Previous</button>
-                                <button type="button" class="next-step">Next</button>
-                            </div>
-                        </div>
-
-                        <!-- Step 3: Personal Details -->
-                        <div class="form-step" data-step="3">
-                            <h3>Your Details</h3>
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="date">Preferred Date</label>
-                                <input type="text" id="date" name="date" class="datepicker" placeholder="Select date" required>
-                            </div>
-                            
-                            <div class="summary">
-                                <h4>Order Summary</h4>
-                                <div id="order-summary"></div>
-                                <div class="total">
-                                    <strong>Total: R<span id="total-price">0</span></strong>
-                                    <span id="discount-text"></span>
-                                </div>
-                            </div>
-                            
-                            <div class="step-navigation">
-                                <button type="button" class="prev-step">Previous</button>
-                                <button type="submit" class="submit-btn">Book Appointment</button>
-                            </div>
-                        </div>
-                    </form>
+                </div>
+                <div class="hours">
+                    <h3>Working Hours</h3>
+                    <p>Monday to Friday: 8:00 AM to 4:00 PM</p>
+                    <p><strong>Note:</strong> We don't have cash. We don't take cards. Only bank statements, salary advice and ID required.</p>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <p>Your message will go directly to our WhatsApp</p>
+                <form id="whatsappForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <div class="contact-info">
-            <h3>Contact Us</h3>
-            <p><i class="fas fa-map-marker-alt"></i> gai gai</p>
-            <p><i class="fas fa-phone"></i> +27 </p>
-            <p class="credit">Website by Ndou Vhuthu</p>
-        </div>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-        </div>
+        <p>&copy; 2025 LongTermLoan. All rights reserved.</p>
     </footer>
 
-    <div class="razor-animation">
-        <i class="fas fa-cut"></i>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="script.js"></script>
+    <script>
+        // Create money animation
+        function createMoneyAnimation() {
+            const moneyAnimation = document.getElementById('moneyAnimation');
+            const moneySymbols = ['💰', '💵', '💷', '💶', '💴', '💳', '🪙'];
+            
+            for (let i = 0; i < 20; i++) {
+                const money = document.createElement('div');
+                money.classList.add('money');
+                money.textContent = moneySymbols[Math.floor(Math.random() * moneySymbols.length)];
+                
+                // Random positions and animation delays
+                money.style.left = Math.random() * 100 + '%';
+                money.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                money.style.animationDelay = (Math.random() * 5) + 's';
+                money.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                moneyAnimation.appendChild(money);
+            }
+        }
+        
+        // WhatsApp form functionality
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Format the message for WhatsApp
+            const formattedMessage = `Hello, my name is ${name}. ${message} (Phone: ${phone})`;
+            const encodedMessage = encodeURIComponent(formattedMessage);
+            
+            // Open WhatsApp with the pre-filled message
+            window.open(`https://wa.me/27794839334?text=${encodedMessage}`, '_blank');
+        });
+        
+        // Initialize the page
+        window.addEventListener('load', function() {
+            createMoneyAnimation();
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
